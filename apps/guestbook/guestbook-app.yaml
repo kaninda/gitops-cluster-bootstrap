@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: guestbook-project
+  source:
+    repoURL: git@github.com:kaninda/argocd-example-apps.git
+    targetRevision: master
+    path: deploy
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
