@@ -1,5 +1,7 @@
 # gitops-cluster-bootstrap
 
+# gitops-cluster-bootstrap
+
 This repository is the **GitOps root repository** used to manage a Kubernetes cluster using **ArgoCD.**
 
 It follows a declarative approach where all infrastructure and applications are defined in Git and automatically reconciled with the cluster.
@@ -8,24 +10,53 @@ It follows a declarative approach where all infrastructure and applications are 
 
 ## 🧠 Architecture Overview
 
-This project follows the **App of Apps pattern**:
+This project follows a **layered App of Apps pattern**:
 
 ```mermaid
 graph TD
-  RootApp[root-app] --> App1[Application 1]
-  RootApp --> App2[Application 2]
-  RootApp --> Project[AppProjects]
-  RootApp --> RBAC[RBAC Config]
-  App1 --> K8s1[Kubernetes Resources]
-  App2 --> K8s2[Kubernetes Resources]
+  Root[root-app] --> Projects[projects app]
+  Root --> Apps[apps app]
+  Root --> RBAC[rbac app]
+
+  Projects --> AppProjects[AppProjects]
+  Apps --> Applications[Applications]
+  RBAC --> RBACConfig[RBAC Config]
+
+  Applications --> K8s[Kubernetes Resources]
 ```
+---
+## 🎯 Entry Point
+
+The only entry point to the system is:
+
+👉 root-app
+
+All other applications (apps, projects, rbac) are managed declaratively by this root application.
+
+---
+
+## 🧩 Layered App of Apps Pattern
+
+This repository uses a layered architecture:
+
+- root-app → orchestrates everything
+- projects → manages AppProjects (governance)
+- apps → manages business applications
+- rbac → manages access control
+
+This separation improves:
+
+- Scalability
+- Security
+- Maintainability
 
 ---
 
 ## 🚀 Core Concepts
 ### 1. App of Apps (Orchestration)
 
-A root ArgoCD application (root-app) manages all child applications.
+A root ArgoCD application (root-app) manages a set of layered applications (apps, projects, rbac), which in turn manage cluster resources.
+
 - Central entrypoint
 - Enables full GitOps automation
 - Simplifies onboarding of new applications
@@ -93,8 +124,13 @@ graph LR
 ## 📁 Repository Structure
 ````shell
 .
-├── argocd/          # Root application (App of Apps)
-├── apps/            # Applications definitions
+├── argocd/          # Bootstrap layer (root-app + system apps)
+│   ├── root-app.yaml
+│   ├── apps.yaml
+│   ├── projects.yaml
+│   └── rbac.yaml
+├── apps/            # Business applications
+│   └── guestbook/
 ├── projects/        # AppProjects (governance)
 ├── rbac/            # RBAC configuration
 └── docs/            # Application-specific documentation
