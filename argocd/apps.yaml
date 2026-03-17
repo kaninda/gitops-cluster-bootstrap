@@ -1,15 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-app
+  name: apps
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
 
   source:
     repoURL: git@github.com:kaninda/gitops-cluster-bootstrap.git
     targetRevision: master
-    path: argocd
+    path: apps
     directory:
       recurse: true
 
