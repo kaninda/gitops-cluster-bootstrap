@@ -1,21 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: guestbook
+  name: user-service-dev
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "0"
 spec:
-  project: guestbook-project
+  project: spring-boot-aggregator-loom-project
   source:
-    repoURL: git@github.com:kaninda/argocd-example-apps.git
+    repoURL: git@github.com:kaninda/spring-boot-aggregator-loom.git
     targetRevision: master
-    path: deploy
-
+    path: deploy/helm/user-service
+    helm:
+      valueFiles:
+        - values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: guestbook
-
+    namespace: dev
   syncPolicy:
     automated:
       prune: true

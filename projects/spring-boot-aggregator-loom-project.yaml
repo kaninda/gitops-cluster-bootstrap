@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: guestbook-project
+  name: spring-boot-aggregator-loom-project
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
-  description: Project for guestbook application
+  description: Project for spring-boot-aggregator-loom applications
   # Repos Git autorisés
   sourceRepos:
-    - git@github.com:kaninda/argocd-example-apps.git
+    - git@github.com:kaninda/spring-boot-aggregator-loom.git
   # Destinations autorisées
   destinations:
     - namespace: dev
+      server: https://kubernetes.default.svc
+    - namespace: prod
       server: https://kubernetes.default.svc
   # Ressources autorisées (optionnel mais propre)
   clusterResourceWhitelist:
