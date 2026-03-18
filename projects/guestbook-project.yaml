@@ -12,7 +12,7 @@ spec:
     - git@github.com:kaninda/argocd-example-apps.git
   # Destinations autorisées
   destinations:
-    - namespace: dev
+    - namespace: guestbook-dev
       server: https://kubernetes.default.svc
   # Ressources autorisées (optionnel mais propre)
   clusterResourceWhitelist:
