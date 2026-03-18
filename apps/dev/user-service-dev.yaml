@@ -8,7 +8,7 @@ metadata:
 spec:
   project: spring-boot-aggregator-loom-project
   source:
-    repoURL: https://github.com/kaninda/spring-boot-aggregator-loom.git
+    repoURL: git@github.com:kaninda/spring-boot-aggregator-loom.git
     targetRevision: master
     path: deploy/helm/user-service
     helm:
