@@ -12,9 +12,13 @@ spec:
     - git@github.com:kaninda/spring-boot-aggregator-loom.git
   # Destinations autorisées
   destinations:
-    - namespace: dev
+    - namespace: user-service-dev
       server: https://kubernetes.default.svc
-    - namespace: prod
+    - namespace: order-service-dev
+      server: https://kubernetes.default.svc
+    - namespace: loyalty-service-dev
+      server: https://kubernetes.default.svc
+    - namespace: aggregator-service-dev
       server: https://kubernetes.default.svc
   # Ressources autorisées (optionnel mais propre)
   clusterResourceWhitelist:
