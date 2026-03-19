@@ -12,6 +12,7 @@ spec:
     targetRevision: master
     path: deploy/helm/user-service
     helm:
+      namespace: user-service-dev
       valueFiles:
         - values-dev.yaml
   destination:
