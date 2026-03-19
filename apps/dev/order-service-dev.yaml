@@ -12,6 +12,7 @@ spec:
     targetRevision: master
     path: deploy/helm/order-service
     helm:
+      namespace: order-service-dev
       valueFiles:
         - values-dev.yaml
   destination:

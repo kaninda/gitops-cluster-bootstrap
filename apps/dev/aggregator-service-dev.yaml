@@ -12,6 +12,7 @@ spec:
     targetRevision: master
     path: deploy/helm/aggregator-service
     helm:
+      namespace: aggregator-service-dev
       valueFiles:
         - values-dev.yaml
   destination:

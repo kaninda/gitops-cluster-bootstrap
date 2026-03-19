@@ -12,6 +12,7 @@ spec:
     targetRevision: master
     path: deploy/helm/loyalty-service
     helm:
+      namespace: loyalty-service-dev
       valueFiles:
         - values-dev.yaml
   destination:
