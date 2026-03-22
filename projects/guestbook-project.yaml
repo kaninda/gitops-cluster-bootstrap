@@ -22,7 +22,11 @@ spec:
     - group: apps
       kind: Deployment
     - group: ""
+      kind: ReplicaSet
+    - group: ""
       kind: Service
+    - group: ""
+      kind: Pod
     - group: ""
       kind: ConfigMap
     - group: ""
